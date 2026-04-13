@@ -76,7 +76,7 @@
             try {
                 const response = await fetch('/api/whitelist', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'package/json' },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ char_name })
                 });
                 
