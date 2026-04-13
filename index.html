@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>SAMP Whitelist - Vercel to Ptero</title>
+    <style>
+        body { font-family: sans-serif; background: #111; color: white; display: flex; justify-content: center; padding-top: 50px; }
+        .box { background: #222; padding: 20px; border-radius: 8px; width: 350px; text-align: center; border: 1px solid #333; }
+        input { width: 100%; padding: 10px; margin: 10px 0; box-sizing: border-box; background: #333; border: none; color: white; }
+        button { width: 100%; padding: 10px; background: #0070f3; border: none; color: white; cursor: pointer; border-radius: 5px; }
+        #status { margin-top: 15px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h3>Whitelist Registration</h3>
+        <input type="text" id="charName" placeholder="Contoh: Robert_Manuel">
+        <button onclick="submitData()">Daftarkan Karakter</button>
+        <div id="status"></div>
+    </div>
+
+    <script>
+        async function submitData() {
+            const char_name = document.getElementById('charName').value;
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerText = "Sedang memproses...";
+
+            try {
+                const response = await fetch('/api/whitelist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ char_name })
+                });
+                const data = await response.json();
+                statusDiv.innerText = data.message;
+            } catch (err) {
+                statusDiv.innerText = "Terjadi kesalahan koneksi.";
+            }
+        }
+    </script>
+</body>
+</html>
+
